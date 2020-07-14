@@ -32,3 +32,5 @@ cc csvtoxlsx.c -o csvtoxlsx -lxlsxwriter
 Improvements:
 
 This script could be improved a lot, for example there could be another argument to provide a delimiter, but time is the enemy tonight, so I'm leaving it for future iterations.
+
+Please feel free to contribute by creating an Issue for Pull Request.
