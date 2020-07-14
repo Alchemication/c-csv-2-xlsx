@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
 
     // check params
     if( argc < 2 || argc > 4 ) {
-        printf("Need to provide 2 arguments: input file-path-name and output file-path-name");
+        printf("Need to provide 2 arguments: input file-path-name and output file-path-name\n");
         return 1;
     }
 
