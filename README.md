@@ -22,3 +22,10 @@ Compile C file (need to install libxlsxwriter first):
 cc csvtoxlsx.c -o csvtoxlsx -lxlsxwriter
 ```
  
+ Troubleshooting:
+
+ If the script is bombing out with the "Can't find shared library", create env variable like this (or find where your libxlsxwriter is located):
+ ```bash
+ export LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH"
+ ```
+ 
