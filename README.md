@@ -1,5 +1,5 @@
 # c-csv-2-xlsx
-Efficient script to convert csv files to xlsx
+Efficient script to convert csv files to xlsx written in C without any fancy stuff, like Excel styles, etc.
 
 
 This script was created to convert csv files to xlsx files with high speed.
@@ -28,4 +28,3 @@ cc csvtoxlsx.c -o csvtoxlsx -lxlsxwriter
  ```bash
  export LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH"
  ```
- 
