@@ -35,8 +35,8 @@ int main(int argc, char *argv[]) {
     }
 
     // set up initial variables
-    char buf[4096];
-    char token[4096];
+    char buf[1024];
+    char token[1024];
 
     int row_count = 0;
     int field_count = 0;
@@ -56,7 +56,7 @@ int main(int argc, char *argv[]) {
     lxw_worksheet *worksheet = workbook_add_worksheet(workbook, NULL);
 
     // iterate through csv file
-    while (fgets(buf, 4096, fp)) {
+    while (fgets(buf, 1024, fp)) {
 
         // cycle through each line
         field_count = 0;
