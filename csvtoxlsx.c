@@ -20,23 +20,19 @@
  * cc csvtoxlsx.c -o csvtoxlsx -lxlsxwriter
  **/
 
-void add_to_sheet(lxw_worksheet *worksheet, int row_count, int col_count, char *value) {
-    // printf("Row number: %d, col number: %d, value: %s", row_count, col_count, value);
-    // printf("\n");
-    worksheet_write_string(worksheet, row_count, col_count, value, NULL);
-}
-
 int main(int argc, char *argv[]) {
 
     // check params
-    if( argc < 2 || argc > 4 ) {
-        printf("Need to provide 2 arguments: input file-path-name and output file-path-name");
+    if( argc != 4) {
+        fprintf(stderr, "Need to provide 3 arguments: csv-filepath, xlsx-filepath and sheetname\n");
         return 1;
     }
 
-    // set up initial variables
-    char buf[1024];
-    char token[1024];
+    // set up initial variables, max characters we are expecting on a
+    // single line is 4096, this should be probably made dynamic (or even a parameter), but
+    // it will be easy to adjust if required
+    char buf[4096];
+    char token[4096];
 
     int row_count = 0;
     int field_count = 0;
@@ -47,28 +43,45 @@ int main(int argc, char *argv[]) {
     // open csv file
     FILE *fp = fopen(argv[1], "r");
     if (!fp) {
-        printf("Can't open file\n");
+        fprintf(stderr, "Can't open file\n");
         return 1;
     }
 
     // create new workbook (and worksheet)
     lxw_workbook  *workbook = workbook_new(argv[2]);
-    lxw_worksheet *worksheet = workbook_add_worksheet(workbook, NULL);
+    lxw_worksheet *worksheet = workbook_add_worksheet(workbook, argv[3]);
+
+    // set format for headers
+    lxw_format *format_header = workbook_add_format(workbook);
+    format_set_bg_color(format_header, 0x54a0ff);
+    format_set_font_color(format_header, 0xfefefe);
+    format_set_align(format_header, LXW_ALIGN_CENTER);
+
+    // set width for columns
+    int col_width = 30;
 
     // iterate through csv file
-    while (fgets(buf, 1024, fp)) {
+    while (fgets(buf, 4096, fp)) {
 
-        // cycle through each line
+        // reset variables for each row
         field_count = 0;
         i = 0;
+        in_double_quotes = 0;
+
+        // cycle through each line
         do {
             token[token_pos++] = buf[i];
 
             if (!in_double_quotes && (buf[i] == ',' || buf[i] == '\n')) {
                 token[token_pos - 1] = 0;
                 token_pos = 0;
-                // add value to worksheet
-                add_to_sheet(worksheet, row_count, field_count++, token);
+                // add value to worksheet, on a first row - add format for headers
+                if (row_count == 0) {
+                    worksheet_set_column(worksheet, 0, field_count, col_width, NULL);
+                    worksheet_write_string(worksheet, row_count, field_count++, token, format_header);
+                } else {
+                    worksheet_write_string(worksheet, row_count, field_count++, token, NULL);
+                }
             }
 
             if (buf[i] == '"' && buf[i + 1] != '"') {
@@ -80,7 +93,6 @@ int main(int argc, char *argv[]) {
                 i++;
 
         } while (buf[++i]);
-
         row_count++;
     }
 
