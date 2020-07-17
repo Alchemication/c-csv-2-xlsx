@@ -14,7 +14,7 @@ Kudos to following articles for help with the beautiful (:D) C language:
   
 Usage:
 ```bash
-./csvtoxlsx test.csv test10.xlsx
+./csvtoxlsx ./input-file.csv ./output-file.xlsx my-sheet-name 
 ```
   
 Compile C file (need to install libxlsxwriter first):
