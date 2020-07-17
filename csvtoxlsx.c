@@ -14,7 +14,7 @@
  * - Populate xlsx: http://libxlsxwriter.github.io/getting_started.html
  * 
  * Usage:
- * ./csvtoxlsx test.csv test10.xlsx
+ * ./csvtoxlsx ./input-file.csv ./output-file.xlsx my-sheet-name
  * 
  * Compile C file (need to install libxlsxwriter first):
  * cc csvtoxlsx.c -o csvtoxlsx -lxlsxwriter
