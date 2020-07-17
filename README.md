@@ -1,13 +1,12 @@
 # c-csv-2-xlsx
-Efficient script to convert csv files to xlsx written in C without any fancy stuff, like Excel styles, etc.
-
+Efficient script to convert csv files to xlsx written in C.
 
 This script was created to convert csv files to xlsx files with high speed.
 It's nice as it will parse the csv files correctly, respecting commas, double
 quotes, etc.
 
 Feel free to use and abuse!
-  
+
 Kudos to following articles for help with the beautiful (:D) C language:
 - Process csv: https://codingboost.com/parsing-csv-files-in-c
 - Populate xlsx: http://libxlsxwriter.github.io/getting_started.html
